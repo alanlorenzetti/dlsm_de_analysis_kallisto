@@ -72,6 +72,8 @@ totrnaSE = SummarizedExperiment(assay = list(counts=assay),
 rownames(totrnaSE) = rowData(totrnaSE)$target_id
 
 # creating deseq2 objects
+# design controls for the effect of timepoint
+# https://stats.stackexchange.com/questions/17336/how-exactly-does-one-control-for-other-variables
 totrnadds = totrnaSE
 totrnadds = DESeqDataSet(totrnadds, design = ~ strain + timepoint)
 
