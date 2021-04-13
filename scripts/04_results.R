@@ -40,10 +40,14 @@ for(i in names(results)){
 }
 
 # writing files
-for(i in names(finalRes)){
-  finalRes[[i]] %>% 
-    write.xlsx(., file = paste0("results/", i, ".xlsx"))
-}
+finalRes$kallistoEstCounts %>% 
+  write_tsv(., file = paste0("results/", "kallistoEstCounts", ".tsv"))
+finalRes$kallistoTPM %>% 
+  write_tsv(., file = paste0("results/", "kallistoTPM", ".tsv"))
+finalRes$DESeq2$dlsm_vs_dura3 %>% 
+  write_tsv(., file = paste0("results/", "DESeq2", ".tsv"))
+finalRes$DESeq2$dlsm_vs_dura3 %>% 
+  write.xlsx(., file = paste0("results/", "DESeq2", ".xlsx"))
 
 # performing functional enrichment analysis ####
 # genes will be considered differentially expressed
@@ -146,6 +150,6 @@ for(j in inputobj$status %>% unique()){
 enrich$qval = p.adjust(enrich$pval)
 enrich = enrich[enrich$qval < qthr,]
 
-# enrichement was found for only one class, but they were just
+# enrichment was found for only one class, but they were just
 # three genes pertaining to the "Cell cycle ..." category
 # I don't think it is worthy of mentioning the analysis
